@@ -17,21 +17,45 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <RootNavigator />
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+    >
+      <RootStackNavigator />
     </NavigationContainer>
   );
 }
 
 // A root stack navigator is often used for displaying modals on top of all other content
 // Read more here: https://reactnavigation.org/docs/modal
-const Stack = createStackNavigator<RootStackParamList>();
+const RootStack = createStackNavigator(); // for the modal - doesnt need that linking shit
+const AuthStack = createStackNavigator();
+const MainStack = createStackNavigator<RootStackParamList>();
 
-function RootNavigator() {
+function MainStackNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-    </Stack.Navigator>
+    <MainStack.Navigator screenOptions={{ headerShown: false }}>
+      <MainStack.Screen name="Root" component={BottomTabNavigator} />
+      <MainStack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+    </MainStack.Navigator>
   );
 }
+
+function RootStackNavigator() {
+  return (
+    <RootStack.Navigator mode="modal">
+      <RootStack.Screen
+        name="Main"
+        component={MainStackNavigator}
+        options={{ headerShown: false }}
+      />
+      <RootStack.Screen name="AuthModal" component={AuthStackNavigator} />
+    </RootStack.Navigator>
+  );
+}
+
+const AuthStackNavigator = () => {
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen component={WelcomeScreen} />
+    </AuthStack.Navigator>
+  );
+};
