@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
 const Button = (props) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity style={{ width: '100%' }}>
       <Text style={styles.btn}>{props.title}</Text>
     </TouchableOpacity>
   );

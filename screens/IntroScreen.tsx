@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { StyleSheet, ImageBackground } from 'react-native';
-import {height,width} from '../constants/layout;'
+import { height, width } from '../constants/layout;';
 import AnimatedLogo from '../components/AnimatedLogo';
 import { Text, View } from '../components/Themed';
 
-export default function TabOneScreen() {
+export default function IntroScreen({ navigation }) {
   return (
     <ImageBackground source={require('../assets/images/city1.png')} style={styles.container}>
-      <AnimatedLogo />
+      <AnimatedLogo navigation={navigation} />
     </ImageBackground>
   );
 }

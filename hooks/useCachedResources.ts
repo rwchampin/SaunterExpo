@@ -11,10 +11,11 @@ export default function useCachedResources() {
   React.useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
-        SplashScreen.preventAutoHideAsync();
+        await SplashScreen.preventAutoHideAsync();
         // await Asset.loadAsync([require('../assets/images/city1.png')]);
         // Load fonts
-        await Font.loadAsync({
+        Font.loadAsync({
+          'cooper': require('../assets/fonts/coop.ttf'),
           ...Ionicons.font,
           'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf')
         });
@@ -22,8 +23,8 @@ export default function useCachedResources() {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
       } finally {
-        setLoadingComplete(true);
-        SplashScreen.hideAsync();
+        await setLoadingComplete(true);
+        await SplashScreen.hideAsync();
       }
     }
 
