@@ -6,21 +6,32 @@ import { NativeBaseProvider } from 'native-base';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import AppDrawerScreen from './navigation/DrawerNavigation';
-import AnimatedSplash from 'react-native-animated-splash-screen';
+
 import AnimatedLogo from './components/AnimatedLogo';
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
+  async function runLoadCache() {
+    const wtf = await useCachedResources();
+    console.log(wtf);
+    return true;
+  }
+  const isLoadingComplete = runLoadCache();
   const colorScheme = useColorScheme();
 
-  return (
-    <NativeBaseProvider style={{ backgroundColor: 'red' }}>
-      <AnimatedSplash isLoaded={isLoadingComplete} customComponent={<AnimatedLogo />}>
-        <SafeAreaProvider>
+  if (!isLoadingComplete) {
+    return (
+      <NativeBaseProvider>
+        <AnimatedLogo />
+      </NativeBaseProvider>
+    );
+  } else {
+    return (
+      <NativeBaseProvider>
+        <SafeAreaProvider forceInset={{ bottom: 100 }}>
           <AppDrawerScreen colorScheme={colorScheme} />
           <StatusBar />
         </SafeAreaProvider>
-      </AnimatedSplash>
-    </NativeBaseProvider>
-  );
+      </NativeBaseProvider>
+    );
+  }
 }

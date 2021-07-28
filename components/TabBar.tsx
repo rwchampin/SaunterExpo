@@ -5,10 +5,11 @@ import BellIcon from './BellIcon';
 import HeartIcon from './HeartIcon';
 import MessageIcon from './MessageIcon';
 import NewsIcon from './NewsIcon';
-import { Value } from 'react-native-reanimated';
+import { Value, useCode, onChange, block, set } from 'react-native-reanimated';
 import Tab from './Tab';
 import Colors from '../constants/Colors';
-
+import { withTransition, timing } from 'react-native-redash/lib/module/v1';
+import ParticleDots from './ParticleDots';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
@@ -25,8 +26,8 @@ const ICON_SIZE = 50;
 
 const styles = StyleSheet.create({
   container: {
-    height: 60,
-    alignSelf: 'flex-end',
+    // height: 100,
+    // alignSelf: 'flex-end',
     flexDirection: 'row',
     backgroundColor: Colors.dark.background
   },
@@ -44,12 +45,19 @@ const TabBar = () => {
   /* eslint-disable */
   /* prettier-ignore */
   const active = new Value<number>(0);
+  const transition = withTransition(active);
+  const activeTransition = new Value(0);
+  useCode(
+    () => block([onChange(active, set(activeTransition, 0))], [set(activeTransition, timing({}))]),
+    []
+  );
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.tabs}>
+        <ParticleDots {...{ transition, activeTransition }} />
         {tabs.map(({ icon }, index) => (
           <View style={styles.tab} key={index}>
-            <Tab onPress={() => active.setValue(index)} {...{ active, index }}>
+            <Tab onPress={() => active.setValue(index)} {...{ active, index, transition }}>
               {icon}
             </Tab>
           </View>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-
+import * as Haptics from 'expo-haptics';
 import {
   SafeAreaView,
   Dimensions,
@@ -21,6 +21,7 @@ import {
   Pressable,
   NativeBaseProvider
 } from 'native-base';
+import { CooperText } from './StyledText';
 
 const style = StyleSheet.create({
   container: {
@@ -144,76 +145,69 @@ const AnimatedLogo = (props) => {
                     }
                   }}
                 >
-                  <Text
+                  <CooperText
                     style={{
-                      fontFamily: 'cooper',
                       fontSize: 60,
                       color: 'white',
                       fontWeight: 'bold'
                     }}
                   >
                     S
-                  </Text>
-                  <Text
+                  </CooperText>
+                  <CooperText
                     style={{
-                      fontFamily: 'cooper',
                       fontSize: 60,
                       color: 'white',
                       fontWeight: 'bold'
                     }}
                   >
                     A
-                  </Text>
-                  <Text
+                  </CooperText>
+                  <CooperText
                     style={{
-                      fontFamily: 'cooper',
                       fontSize: 60,
                       color: 'white',
                       fontWeight: 'bold'
                     }}
                   >
                     U
-                  </Text>
-                  <Text
+                  </CooperText>
+                  <CooperText
                     style={{
-                      fontFamily: 'cooper',
                       fontSize: 60,
                       color: 'white',
                       fontWeight: 'bold'
                     }}
                   >
                     N
-                  </Text>
-                  <Text
+                  </CooperText>
+                  <CooperText
                     style={{
-                      fontFamily: 'cooper',
                       fontSize: 60,
                       color: 'white',
                       fontWeight: 'bold'
                     }}
                   >
                     T
-                  </Text>
-                  <Text
+                  </CooperText>
+                  <CooperText
                     style={{
-                      fontFamily: 'cooper',
                       fontSize: 60,
                       color: 'white',
                       fontWeight: 'bold'
                     }}
                   >
                     E
-                  </Text>
-                  <Text
+                  </CooperText>
+                  <CooperText
                     style={{
-                      fontFamily: 'cooper',
                       fontSize: 60,
                       color: 'white',
                       fontWeight: 'bold'
                     }}
                   >
                     R
-                  </Text>
+                  </CooperText>
                 </Stagger>
               </Center>
             </Row>
@@ -265,6 +259,7 @@ const AnimatedLogo = (props) => {
                   <Pressable
                     style={{ width: '100%' }}
                     onPress={() => {
+                      Haptics.impactAsync('Light');
                       setIsOpen(false);
                       setTimeout(() => {
                         navigation.navigate('WelcomeScreen', {

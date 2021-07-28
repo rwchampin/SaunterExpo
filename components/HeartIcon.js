@@ -8,8 +8,8 @@ function HeartIcon({ active }) {
       width={50}
       height={50}
       viewBox="0 0 50 50"
-      fill={active ? Colors.dark.tint : 'none'}
-      stroke={active ? Colors.dark.tint : 'white'}
+      fill={active ? Colors.dark.pink : 'none'}
+      stroke={active ? Colors.dark.pink : 'white'}
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"

@@ -21,6 +21,7 @@ const Paginator = (props) => {
         : { bakgroundColor: 'rgba( 0,0,0,.4)', borderColor: 'black', borderWidth: 1 };
     return (
       <Box
+        key={index}
         style={[
           { height: 10, width: 10, borderRadius: '200%', marginLeft: 3, marginRight: 3 },
           dotStyle
